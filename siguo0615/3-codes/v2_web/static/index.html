@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五子棋智能对战平台 - v2 Web Interface</title>
+    <!-- Google Fonts Outfit & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg-container">
+        <div class="glow-orb" id="orb-1"></div>
+        <div class="glow-orb" id="orb-2"></div>
+        
+        <header>
+            <h1 class="logo-title">Gomoku <span>AI Platform</span></h1>
+            <p class="subtitle">敏捷迭代与智能导师制课外研究项目 - v2 Web 对战系统</p>
+        </header>
+
+        <main class="main-container">
+            <!-- Left Side: Board -->
+            <div class="board-panel glass-panel">
+                <div class="board-wrapper">
+                    <!-- Column letters (A-O) -->
+                    <div class="coord-row top-coord"></div>
+                    
+                    <div class="board-center-row">
+                        <!-- Row numbers (1-15) -->
+                        <div class="coord-col left-coord"></div>
+                        
+                        <!-- Real interactive Gomoku board canvas or DOM grid -->
+                        <div class="game-board-container">
+                            <canvas id="board-canvas" width="600" height="600"></canvas>
+                        </div>
+                        
+                        <div class="coord-col right-coord"></div>
+                    </div>
+                    
+                    <div class="coord-row bottom-coord"></div>
+                </div>
+            </div>
+
+            <!-- Right Side: Sidebar Dashboard -->
+            <div class="control-panel glass-panel">
+                <div class="dashboard-header">
+                    <h2>控制中心</h2>
+                    <div class="badge" id="status-badge">对局进行中</div>
+                </div>
+
+                <!-- Current Player Dashboard -->
+                <div class="player-turn-container">
+                    <div class="player-box active" id="player-black-box">
+                        <div class="stone-icon black"></div>
+                        <div class="player-info">
+                            <span class="label">先手 (黑子)</span>
+                            <span class="name">Player Black</span>
+                        </div>
+                    </div>
+                    
+                    <div class="player-box" id="player-white-box">
+                        <div class="stone-icon white"></div>
+                        <div class="player-info">
+                            <span class="label">后手 (白子)</span>
+                            <span class="name">Player White</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats panel -->
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <span class="stat-label">总步数</span>
+                        <span class="stat-value" id="stat-steps">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">当前耗时</span>
+                        <span class="stat-value" id="stat-time">0.0s</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="btn-restart" class="btn primary-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                        重新开始
+                    </button>
+                    <button id="btn-undo" class="btn secondary-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
+                        悔棋 (Undo)
+                    </button>
+                    <button id="btn-save" class="btn secondary-btn">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                        导出 JSON 棋谱
+                    </button>
+                </div>
+
+                <!-- Move Logs Header -->
+                <div class="move-history-title">历史走法 (Move History)</div>
+                <!-- Move logs history list -->
+                <div class="move-history-list" id="move-history-list">
+                    <div class="empty-history-text">暂无落子记录</div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>五子棋 AI 辅助系统 - HKU CS 研究计划专享</p>
+        </footer>
+    </div>
+
+    <!-- Alert Dialog for Forbidden Moves / Wins -->
+    <div class="modal-overlay" id="alert-modal">
+        <div class="modal-card glass-panel">
+            <h3 id="modal-title">系统提示</h3>
+            <p id="modal-message">提示内容</p>
+            <button class="btn primary-btn" id="modal-btn-ok">确定</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

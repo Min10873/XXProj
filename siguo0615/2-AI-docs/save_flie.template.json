@@ -1,0 +1,33 @@
+{
+    "game_id": "20260615_235800_abc",
+    "date": "2026-06-15 23:58:00",
+    "players": {
+        "black": "Human_Player",
+        "white": "AI_Persona_A"
+    },
+    "board_size": 15,
+    "moves": [
+        {
+            "step": 1,
+            "player": 1,
+            "pos": [
+                7,
+                7
+            ],
+            "time_spent": 2.5
+        },
+        {
+            "step": 2,
+            "player": 2,
+            "pos": [
+                7,
+                8
+            ],
+            "time_spent": 1.2
+        }
+    ],
+    "result": {
+        "winner": 1,
+        "reason": "five_in_a_row"
+    }
+}
